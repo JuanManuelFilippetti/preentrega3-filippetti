@@ -6,10 +6,18 @@ class UsersMongo extends BasicMongo {
     super(usersModel);
   }
 
-  async findUserByRole(role) {
-    const response = await usersModel.findOne({ role });
-    return response;
+  async findUser(username) {
+    const user = await usersModel.findOne({ username });
+    if (!user) throw new Error("User not found");
+    return user;
   }
+
+
+//  async findUserByRole(role) {
+//    const response = await usersModel.findOne({ role });
+//    return response;
+//  }
+
 }
 
 export const usersMongo = new UsersMongo();

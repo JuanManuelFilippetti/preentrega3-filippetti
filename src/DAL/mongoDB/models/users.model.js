@@ -1,9 +1,18 @@
 import mongoose from "mongoose";
 
 const usersSchema = new mongoose.Schema({
-  name: {
+  first_name: {
     type: String,
     required: true,
+  },
+  last_name: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -14,16 +23,24 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  age: {
+    type: Number,
+    required: true,
+  },
   role: {
     type: String,
-    default: "BASIC",
+    enum: ["admin", "user", "prime"],
+    default: "user",
   },
-  orders: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Orders",
-    },
-  ],
+  fromGithub: {
+    type: Boolean,
+    default: false,
+  },
+  cartId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Carts",
+    default: null,
+  },
 });
 
 export const usersModel = mongoose.model("Users", usersSchema);
