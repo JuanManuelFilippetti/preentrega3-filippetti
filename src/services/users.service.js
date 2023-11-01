@@ -1,6 +1,6 @@
 import { usersMongo } from "../DAL/DAOs/MongoDAOs/usersMongo.dao.js";
 import UsersDTO from "../DAL/DTOs/users.dto.js";
-import { hashData, compareData } from ".././utils.js";
+import { hashData, compareData } from "../utils/utils.js";
 
 class UsersService {
   async findUser(username) {

@@ -1,9 +1,8 @@
 import passport from "passport";
-import { usersModel } from "../../DAL/MongoDB/models/users.model.js";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { userService } from "../users.service.js";
-import { compareData } from "../../utils.js";
+import { compareData } from "../../utils/utils.js";
 import config from "../../config.js";
 
 //Local login
