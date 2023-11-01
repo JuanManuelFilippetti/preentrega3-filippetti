@@ -1,0 +1,59 @@
+<h1>Welcome to the page {{first_name}}</h1>
+<div class="formularios">
+  <div>
+    <h2 style="background-color: rgba(88, 255, 17, 0.907);">Agregar Producto</h2>
+    <form id="formProduct">
+      Name:
+      <input type="text" name="nameProduct" id="nameProduct" required />
+      Code:
+      <input type="text" name="code" id="code" required />
+      Price:
+      <input type="number" name="price" id="price" required />
+      Stock:
+      <input type="number" name="stock" id="stock" required />
+      Description:
+      <input type="text" name="description" id="description" required />
+      <input type="submit" value="Enviar" />
+    </form>
+  </div>
+  <div>
+    <h2 style="background-color: rgb(255, 47, 47);">Eliminar Producto</h2>
+    <form id="deleteProduct">
+      ID:
+      <input type="number" name="id" id="id" />
+      <input type="submit" value="Eliminar" />
+    </form>
+  </div>
+</div>
+
+<table id="tableProds" style="background-color: rgb(108, 110, 239);">
+  <thead>
+    <tr>
+      <th style="padding: 1rem; font-size: 1.5rem">ID</th>
+      <th style="padding: 1rem; font-size: 1.5rem">Name</th>
+      <th style="padding: 1rem; font-size: 1.5rem">Code</th>
+      <th style="padding: 1rem; font-size: 1.5rem">Price</th>
+      <th style="padding: 1rem; font-size: 1.5rem">Stock</th>
+      <th style="padding: 1rem; font-size: 1.5rem">Description</th>
+    </tr>
+  </thead>
+  <tbody id="bodyProd">
+    {{#each products}}
+      <tr style="text-align: center;">
+        <td style="padding: 0.7rem;">{{_id}}</td>
+        <td style="padding: 0.7rem;">{{name}}</td>
+        <td style="padding: 0.7rem;">{{code}}</td>
+        <td style="padding: 0.7rem;">${{price}}</td>
+        <td style="padding: 0.7rem;">{{stock}}</td>
+        <td style="padding: 0.7rem;">{{description}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<a href="/api/views/login" style="padding: 50%;"><button
+    type="button"
+    style="padding: 0.5rem;"
+  >Log Out</button></a>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

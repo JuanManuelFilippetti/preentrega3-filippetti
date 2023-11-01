@@ -1,29 +1,44 @@
 import { usersMongo } from "../DAL/DAOs/MongoDAOs/usersMongo.dao.js";
 import UsersDTO from "../DAL/DTOs/users.dto.js";
-import { hashData } from "../utils.js";
+import { hashData, compareData } from ".././utils.js";
+
 class UsersService {
-  async findAll() {
-    const response = await usersMongo.findAll();
-    return response;
+  async findUser(username) {
+    const user = await usersMongo.findUser({ username });
+    if (!user) throw new Error("User not found");
+    return user;
   }
 
-  async findOne(id) {
-    const response = await usersMongo.findById(id);
-    return response;
+  async createUser(user) {
+    const adminEmail = "adminCoder@coder.com";
+    const { first_name, last_name, username, password, email } = user;
+    const userDB = await usersMongo.findUser(username);
+    if (!first_name || !last_name || !username || !password || !email)
+      throw new Error("Some required data is missing");
+    if (userDB) throw new Error("This user already exists");
+    const hashedPassword = await hashData(password);
+    if (adminEmail === user.email) {
+      user.role = "admin";
+      const newUser = await usersMongo.createOne(user, {
+        password: hashedPassword,
+      });
+      return newUser;
+    } else {
+      const newUser = await usersMongo.createOne(user, {
+        password: hashedPassword,
+      });
+      return newUser;
+    }
   }
 
-  async createOne(obj) {
-    const hashPassword = await hashData(obj.password);
-    if (!hashPassword) throw new Error("Password can not be hashed");
-    const userDTO = new UsersDTO({ ...obj, password: hashPassword });
-    const response = await usersMongo.createOne(userDTO);
-    return response;
-  }
-
-  async deleteOne(id) {
-    const response = await usersMongo.deleteOne(id);
-    return response;
+  async findUserLogin(username, password) {
+    if (!username || !password) throw new Error("Some data is missing");
+    const userLogin = await usersMongo.findUser({ username });
+    if (!userLogin) throw new Error("Sign up first");
+    const isPasswordValid = await compareData(password, userLogin.password);
+    if (!isPasswordValid) throw new Error("Username or Password not valid");
+    return userLogin;
   }
 }
 
-export const usersService = new UsersService();
+export const userService = new UsersService();
