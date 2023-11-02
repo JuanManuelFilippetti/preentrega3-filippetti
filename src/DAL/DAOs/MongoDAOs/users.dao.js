@@ -1,5 +1,5 @@
-import { usersModel } from "../../mongoDB/models/users.model.js";
-import BasicMongo from "./basicMongo.dao.js";
+import { usersModel } from "../../MongoDB/models/users.model.js";
+import BasicMongo from "./BasicMongo.js";
 
 class UsersMongo extends BasicMongo {
   constructor() {
@@ -11,13 +11,6 @@ class UsersMongo extends BasicMongo {
     if (!user) throw new Error("User not found");
     return user;
   }
-
-
-//  async findUserByRole(role) {
-//    const response = await usersModel.findOne({ role });
-//    return response;
-//  }
-
 }
 
 export const usersMongo = new UsersMongo();

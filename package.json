@@ -1,13 +1,12 @@
 {
   "name": "pre-entrega3-filippetti",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/app.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
